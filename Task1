@@ -1,0 +1,13 @@
+import pandas as pd
+
+
+df = pd.read_csv('2016_movie_data.csv', encoding = "ISO-8859-1")         #reads the csv file and assigns variable to it (I still don't understand what sort of object it is creating though)
+
+#print(df.head(5))
+print('Number of movies:', df['Movie'].count())                          #so apparently the top row is considered the 'head' and everything below each column 'head' is part of the 'head'
+print('Number of different genres:', len(set(df['Genre'])))              #so you can sort of treat it like a list or set.  Since this asked for "DIFFERENT genres" i turned into explicitly into a set() because sets don't have repeatable elements
+print('Number of different MPAA:', len(set(df['MPAA'])))                 #then i just did a len() on it which tells you the number of different genres
+print('Number of different distributors:', len(set(df['Distributor'])))  #.count() actually worked on whatever object is created (see line 7).  
+sold_list = [i.replace(',','') for i in list(df['Tickets Sold'])]        #for adding up the total number tickets sold I first tried just sum() on the object but you can't do that because some genius put commas in the numbers.  So I got rid of the commas
+sold_list2 = [int(i) for i in sold_list]                                 #by using i.replace() in line 11.  Then converted all the elements in the object to int() because they are by default strings.  Then simply summed the list.
+print('Total number of tickets sold:', sum(sold_list2))                  # I tried removing commas and converting to int in one list comprehension but couldn't get it to work.  IDK if that's even possible. 
