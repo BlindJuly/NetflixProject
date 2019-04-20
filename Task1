@@ -1,5 +1,9 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import sys
 
+sys.argv.append('Netflix Data')                                          #I'm not sure why I had to do this, but without it I was getting a weird error when trying to plot the bar graph
 
 df = pd.read_csv('2016_movie_data.csv', encoding = "ISO-8859-1")         #reads the csv file and assigns variable to it (I still don't understand what sort of object it is creating though)
 
@@ -11,3 +15,34 @@ print('Number of different distributors:', len(set(df['Distributor'])))  #.count
 sold_list = [i.replace(',','') for i in list(df['Tickets Sold'])]        #for adding up the total number tickets sold I first tried just sum() on the object but you can't do that because some genius put commas in the numbers.  So I got rid of the commas
 sold_list2 = [int(i) for i in sold_list]                                 #by using i.replace() in line 11.  Then converted all the elements in the object to int() because they are by default strings.  Then simply summed the list.
 print('Total number of tickets sold:', sum(sold_list2))                  # I tried removing commas and converting to int in one list comprehension but couldn't get it to work.  IDK if that's even possible. 
+
+
+
+#Part A of number 2 below
+
+month_intlist = []
+count_list = []
+release_date = [i for i in df['Release Date']]
+
+for i in release_date:
+    month_intlist.append(i.split('/',1)[0])                              #this is cool.  So to get just the month number, I split the date string at every '/', then I just called the first element of that list it created(which is the date number)
+
+rel_difcount = len(set(month_intlist))
+
+for i in set(month_intlist):
+    count_list.append(month_intlist.count(i))
+
+print(count_list)
+print(max(count_list))
+
+width = 0.40   
+deltax = np.arange(rel_difcount)
+plot1 = plt.bar(deltax, count_list, width)
+
+
+plt.ylabel('Releases')
+plt.title('Movies released by month')
+plt.xticks(deltax, ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'))
+plt.yticks(np.arange(0, max(count_list)+20, 5))
+
+#End of number 2 part A
