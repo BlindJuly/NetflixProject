@@ -25,7 +25,7 @@ count_list = []
 release_date = [i for i in df['Release Date']]
 
 for i in release_date:
-    month_intlist.append(i.split('/',1)[0])                              #this is cool.  So to get just the month number, I split the date string at every '/', then I just called the first element of that list it created(which is the date number)
+    month_intlist.append(i.split('/',1)[0])                              #this is cool.  So to get just the month number, I split the date string at every '/', then I just called the first element of that list it created(which is the month number)
 
 rel_difcount = len(set(month_intlist))
 
